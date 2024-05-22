@@ -1,10 +1,9 @@
-"use client"
-import Nav from '@/Components/Nav'
+import Create from '@/Components/Create'
 import React from 'react'
 
 const page = () => {
   return (
-      <Nav/>
+    <Create/>
   )
 }
 

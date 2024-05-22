@@ -1,10 +1,9 @@
-"use client"
-import Nav from '@/Components/Nav'
+import Alltasks from '@/Components/Alltasks'
 import React from 'react'
 
 const page = () => {
   return (
-      <Nav/>
+    <Alltasks/>
   )
 }
 
