@@ -1,14 +1,23 @@
 "use client"
 import { asyncsignup } from '@/Store/Actions/Actions'
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Signup = () => {
+  const { push } = useRouter()
   const dispatch = useDispatch()
   const [email, setemail] = useState()
   const [password, setpassword] = useState()
-  
+  const { isAuthenticated } = useSelector((state)=>state.Admin)
+
+  useEffect(() => {
+    if(isAuthenticated){
+        push("/user/auth")
+    }
+  },[isAuthenticated])  
+
   const SubmitHandler = (e)=>{
     e.preventDefault()
     const payload = {
@@ -19,6 +28,8 @@ const Signup = () => {
     setemail("")
     setpassword("")
   }
+
+
   return (
     <div className='h-[90vh]  flex justify-center items-center'>
       <div className="h-[50vh] px-4 border border-[#ffffffc5] rounded-[15px] flex flex-col items-center justify-between py-6">

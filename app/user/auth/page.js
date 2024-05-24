@@ -1,5 +1,4 @@
-import Authpage from '@/Components/authpage'
-import Link from 'next/link'
+import Authpage from '@/Components/Authpage.js'
 import React from 'react'
 
 const authpage = () => {

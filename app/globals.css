@@ -5,7 +5,16 @@
 body{
   background-color: black;
   color: white;
+  user-select: none;
 }
 .primarybtn:hover{
-  background-color: blue;
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  transition: all ease .5s;
+}
+.secondarybtn:hover{
+  background-color: white;
+  color: black;
+  transition: all ease .5s;
 }

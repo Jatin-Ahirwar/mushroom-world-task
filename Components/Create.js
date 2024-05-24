@@ -1,31 +1,43 @@
 "use client"
-import React, { useState } from 'react';
-import Button from './utils/Button';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { asynccreate } from '@/Store/Actions/Actions';
+import { useRouter } from 'next/navigation';
 
 const Create = () => {
+  const dispatch = useDispatch()
   const [showForm, setShowForm] = useState(false);
-  const [task, setTask] = useState('');
-  const [date, setDate] = useState('');
+  const [title, settitle] = useState('');
+  const [description, setdescription] = useState('');
+  const { user } = useSelector((state)=>state.Admin)
+  const { push } = useRouter()
 
   const handleToggleForm = () => {
     setShowForm(!showForm);
   };
 
   const handleTaskChange = (e) => {
-    setTask(e.target.value);
+    settitle(e.target.value);
   };
 
   const handleDateChange = (e) => {
-    setDate(e.target.value);
+    setdescription(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Task:', task);
-    console.log('Description:', date);
-    setTask('');
-    setDate('');
+    const id = user._id
+    const payload ={
+      title , 
+      description,
+      id
+    }
+    console.log(payload)
+    await dispatch(asynccreate(payload))
+    settitle('');
+    setdescription('');
     setShowForm(false);
+    push("/user/auth/alltasks")
   };
 
   return (
@@ -33,21 +45,23 @@ const Create = () => {
       <div className='h-[90vh] w-full flex justify-center items-center'>
         {!showForm ? (
           <div className='flex flex-col gap-2 items-center'>
-            <p >Click the button to create a task</p>
+            <p >Click the button to create a title</p>
             <button onClick={handleToggleForm} className='py-1 px-4  bg-white text-black rounded-[15px]'>Create Task</button>
           </div>
         ) : (
           <form className='flex flex-col gap-4 w-80 border border-[#ffffffc5] p-3 rounded-[10px]' onSubmit={handleSubmit}>
             <input
+              required
               type='text'
-              value={task}
+              value={title}
               onChange={handleTaskChange}
               placeholder='Title'
               className='text-black px-2 py-1 rounded-[3px]'
             />
             <input
+              required
               type='text'
-              value={date}
+              value={description}
               onChange={handleDateChange}
               placeholder='Description'
               className='text-black px-2 py-1 rounded-[3px]'

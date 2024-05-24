@@ -15,11 +15,13 @@ export const Reducer  = createSlice({
     state.user = action.payload,
     state.isAuthenticated = true
     },
+
     removeuser:(state,action)=>{
     state.user = null,
     state.isAuthenticated = false , 
     state.errors = []
     },
+    
     iserror:(state,action)=>{
     state.errors.push(action.payload)
     },

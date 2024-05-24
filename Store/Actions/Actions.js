@@ -7,9 +7,7 @@ export const asyncCurrentUser = () => async(dispatch,getstate) =>{
     try {
         const { data } = await axios.post("/api/users/user" )
         dispatch(adduser(data.user))      
-        // console.log(data.user)
     } catch (error) {
-        // console.log(error.message)
         dispatch(iserror(error.message))
     }
 }
@@ -42,7 +40,6 @@ export const asyncsignout = (payload) => async(dispatch,getstate) =>{
     try {
         const { data } = await axios.get("/api/users/logout" , payload)
         dispatch(removeuser())
-        console.log(data.message)
         toast.success(data.message)      
     } catch (error) {
         dispatch(iserror(error.response.data.error))
@@ -50,3 +47,37 @@ export const asyncsignout = (payload) => async(dispatch,getstate) =>{
     }
 }
 
+
+
+export const asynccreate = (payload) => async(dispatch,getstate) =>{
+    try {
+        const { data } = await axios.post("/api/users/create", payload )
+        dispatch(asyncCurrentUser())
+        toast.success("Task Created.")      
+    } catch (error) {
+        dispatch(iserror(error.response.data.error))
+        toast.error(error.response.data.error)      
+    }
+}
+
+export const asyncupdate = (payload) => async(dispatch,getstate) =>{
+    try {
+        const { data } = await axios.post("/api/users/update", payload )
+        dispatch(asyncCurrentUser())
+        toast.success("Task Updated.")      
+    } catch (error) {
+        dispatch(iserror(error.response.data.error))
+        toast.error(error.response.data.error)      
+    }
+}
+
+export const asyncdelete = (payload) => async(dispatch,getstate) =>{
+    try {
+        const { data } = await axios.post("/api/users/delete", payload )
+        dispatch(asyncCurrentUser())
+        toast.success("Task Deleted.")      
+    } catch (error) {
+        dispatch(iserror(error.response.data.error))
+        toast.error(error.response.data.error)      
+    }
+}
